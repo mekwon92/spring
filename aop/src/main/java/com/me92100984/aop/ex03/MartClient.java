@@ -2,7 +2,10 @@ package com.me92100984.aop.ex03;
 
 import java.lang.reflect.Proxy;
 
+import org.springframework.aop.Pointcut;
+import org.springframework.aop.PointcutAdvisor;
 import org.springframework.aop.framework.ProxyFactory;
+import org.springframework.aop.support.StaticMethodMatcherPointcutAdvisor;
 
 import com.me92100984.aop.ex02.adv.Packaging;
 import com.me92100984.aop.ex03.adv.ThrowLog;
@@ -20,7 +23,7 @@ public class MartClient {
         factory.addAdvice(new Packaging());
         //4. ex03의 ThrowLog를 advice로 지정
         factory.addAdvice(new ThrowLog());
-        // 5. proxy객체 생성 후 getProduct 호출
+        //5. proxy객체 생성 후 getProduct 호출
         try{
             ((Mart)factory.getProxy()).getProduct("간장");
         }

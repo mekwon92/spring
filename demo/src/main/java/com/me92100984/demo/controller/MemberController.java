@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("member")
 public class MemberController {
-    
+    //@Autowired, @Resource, @Inject 중 하나를 선택
     @Autowired
     private MemberService service;
     //의존성 주입: 스프링 컨테이너에 객체 생성주기를 맡김
