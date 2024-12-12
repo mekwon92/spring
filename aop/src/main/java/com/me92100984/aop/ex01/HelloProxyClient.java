@@ -20,7 +20,5 @@ public class HelloProxyClient {
         HelloWorld proxy = (HelloWorld)Proxy.newProxyInstance(HelloWorld.class.getClassLoader(),arrClass, handler);
         proxy.sayHello("새똥이");
         log.info(proxy);
-
     }
-    
 }

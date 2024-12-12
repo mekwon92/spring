@@ -5,10 +5,8 @@ import org.aopalliance.intercept.MethodInvocation;
 
 import lombok.extern.log4j.Log4j2;
 
-
-//around
 @Log4j2
-public class Sourcing implements MethodInterceptor {
+public class Sourcing implements MethodInterceptor { //  Around - 전체 과정을 감싸고 제어(대상 메서드 호출 전, 중간, 후에 원하는 로직을 추가 가능)
     
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {

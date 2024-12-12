@@ -15,13 +15,13 @@ public class Client {
     public static void main(String[] args) {
         ProxyFactory factory = new ProxyFactory(new First());
         factory.addAdvice(new Seasoning());
-        ((First)factory.getProxy()).one();
-        ((First)factory.getProxy()).two();
+        // ((First)factory.getProxy()).one();
+        // ((First)factory.getProxy()).two();
         log.info("========================");
         factory = new ProxyFactory(new First());
         factory.addAdvisor(new DefaultPointcutAdvisor(new SimpleAdvs(), new Seasoning())); //one에만 적용
-        ((First)factory.getProxy()).one();
-        ((First)factory.getProxy()).two();
+        // ((First)factory.getProxy()).one();
+        // ((First)factory.getProxy()).two();
     }
     
 }
