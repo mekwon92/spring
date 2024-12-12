@@ -28,20 +28,12 @@ dependencies {
 	testImplementation 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 	
-	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-	// https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
-	implementation 'org.aspectj:aspectjweaver:1.9.22.1'
-	testRuntimeOnly 'org.aspectj:aspectjweaver:1.9.22.1'
-
-	// https://mvnrepository.com/artifact/org.aspectj/aspectjrt
-	implementation 'org.aspectj:aspectjrt:1.9.22.1'
-	testRuntimeOnly 'org.aspectj:aspectjrt:1.9.22.1'
-
 }
 
 tasks.named('test') {

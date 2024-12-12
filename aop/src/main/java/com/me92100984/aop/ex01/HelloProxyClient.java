@@ -11,12 +11,14 @@ public class HelloProxyClient {
         
         HelloWorld helloWorld = new HelloWorldImpl();
         
-        // HelloWorldHandler<HelloWorld> handler = new HelloWorldHandler<>(new HelloWorldImpl());
-        HelloWorldHandler<HelloWorld> handler = new HelloWorldHandler<>(helloWorld);
+        HelloWorldHandler<HelloWorld> handler = new HelloWorldHandler<>(new HelloWorldImpl());
+        //HelloWorldHandler<HelloWorld> handler = new HelloWorldHandler<>(helloWorld);
 
         helloWorld.sayHello("개똥이");
         log.info(helloWorld);
         log.info("================================================");
+        
+        
         HelloWorld proxy = (HelloWorld)Proxy.newProxyInstance(HelloWorld.class.getClassLoader(),arrClass, handler);
         proxy.sayHello("새똥이");
         log.info(proxy);

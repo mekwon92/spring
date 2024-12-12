@@ -34,6 +34,5 @@ public class ProxyClient {
         Bbq bbq2 = (Bbq)factory.getProxy();
         log.info("=======================================");
         bbq2.cook("간장");
-
     }
 }
