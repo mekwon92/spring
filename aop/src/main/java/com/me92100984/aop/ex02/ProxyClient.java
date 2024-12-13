@@ -17,7 +17,10 @@ public class ProxyClient {
         chicken.cook("후추");
         bbq.cook("간장1");
         log.info("=======================================");
+        
+        
         ProxyFactory factory = new ProxyFactory();
+        
         factory.setTarget(chicken);
         factory.addAdvice(new Seasoning());
         factory.addAdvice(new Sourcing());
@@ -25,6 +28,7 @@ public class ProxyClient {
         log.info("=======================================");
         Chicken chicken2 = (Chicken)factory.getProxy();
         chicken2.cook("파닭");
+
 
         factory = new ProxyFactory(bbq);
         factory.addAdvice(new Sourcing());

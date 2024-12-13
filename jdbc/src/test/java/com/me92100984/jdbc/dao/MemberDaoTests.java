@@ -26,7 +26,7 @@ public class MemberDaoTests {
 
   @Test
   public void testRegister() {
-    Member member = Member.builder().id("abcdefg").pw("1234").name("스부").build();
+    Member member = Member.builder().id("abcde").pw("1234").name("스부").build();
     dao.register(member);
   }
 
@@ -45,7 +45,7 @@ public class MemberDaoTests {
 
   @Test
   public void testRemove() {
-    assertEquals(1, dao.remove("abcdef"));
+    assertEquals(1, dao.remove("hahaha"));
   }
 
 
