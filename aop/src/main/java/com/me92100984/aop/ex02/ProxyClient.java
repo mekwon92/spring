@@ -13,18 +13,17 @@ public class ProxyClient {
     public static void main(String[] args) {
         Chicken chicken = new Chicken();
         Bbq bbq = new Bbq();
-
+        log.info("=======================================");
         chicken.cook("후추");
-        bbq.cook("간장");
-
+        bbq.cook("간장1");
+        log.info("=======================================");
         ProxyFactory factory = new ProxyFactory();
         factory.setTarget(chicken);
         factory.addAdvice(new Seasoning());
         factory.addAdvice(new Sourcing());
         factory.addAdvice(new Packaging());
-
-        Chicken chicken2 = (Chicken)factory.getProxy();
         log.info("=======================================");
+        Chicken chicken2 = (Chicken)factory.getProxy();
         chicken2.cook("파닭");
 
         factory = new ProxyFactory(bbq);
@@ -33,6 +32,6 @@ public class ProxyClient {
 
         Bbq bbq2 = (Bbq)factory.getProxy();
         log.info("=======================================");
-        bbq2.cook("간장");
+        bbq2.cook("간장2");
     }
 }

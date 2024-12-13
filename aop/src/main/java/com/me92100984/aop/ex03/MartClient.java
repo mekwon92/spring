@@ -24,6 +24,7 @@ public class MartClient {
         //4. ex03의 ThrowLog를 advice로 지정
         factory.addAdvice(new ThrowLog());
         //5. proxy객체 생성 후 getProduct 호출
+        
         try{
             ((Mart)factory.getProxy()).getProduct("간장");
         }
