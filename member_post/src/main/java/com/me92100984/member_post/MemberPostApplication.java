@@ -9,5 +9,4 @@ public class MemberPostApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MemberPostApplication.class, args);
 	}
-
 }

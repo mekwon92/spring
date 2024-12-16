@@ -2,9 +2,12 @@ package com.me92100984.member_post.vo;
 
 import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.Data;
 
 @Data
+@Alias("member")
 public class Member {
 	private String id;
 	private String pw;

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.ReplyMapper">
+<mapper namespace="com.me92100984.member_post.mapper.ReplyMapper">
 	<insert id="insert">
 	insert into tbl_reply(content, writer, pno) values (#{content}, #{writer}, #{pno})	
 	</insert>
@@ -19,11 +19,11 @@
 	delete from tbl_reply where pno = #{pno}
 	</delete>
 	
-	<select id="selectOne" resultType="vo.Reply">
+	<select id="selectOne" resultType="reply">
 	select * from tbl_reply where rno = #{rno}
 	</select>
 	
-	<select id="selectList" resultType="vo.Reply">
+	<select id="selectList" resultType="reply">
 	select *
 	from tbl_reply tr
 	where pno = #{pno}
@@ -32,7 +32,7 @@
 	limit #{cri.amount}
 	</select>
 	
-	<select id="selectListByMe" resultType="vo.Reply">
+	<select id="selectListByMe" resultType="reply">
 	select *
 	from tbl_reply tr 
 	where writer = #{writer}
