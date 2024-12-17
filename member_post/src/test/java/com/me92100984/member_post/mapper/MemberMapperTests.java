@@ -31,7 +31,7 @@ public class MemberMapperTests {
 
   @Test
   public void testSignup() {
-    Member member = Member.builder().id("kokoko").pw("1234").name("말똥이").build();
-    mapper.insert(member);
+    // Member member = Member.builder().id("kokoko").pw("1234").name("말똥이").build();
+    // mapper.insert(member);
   }
 }

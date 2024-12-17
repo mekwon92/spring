@@ -3,14 +3,10 @@ plugins {
 	id 'org.springframework.boot' version '3.4.1-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.1.6'
 }
-
-// sourceSets {
-//     main {
-//         resources {
-//             srcDirs "src/main/resources"
-//         }
-//     }
-// }
+configurations {
+    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    all*.exclude group: 'org.springframework.boot', module: 'logback-classic'
+}
 
 group = 'com.me92100984'
 version = '0.0.1-SNAPSHOT'
@@ -61,6 +57,18 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.12.4'
+
+	// all.exclude group에서 빼고 log4j2 추가(log커스텀)
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools
+	implementation 'org.springframework.boot:spring-boot-devtools:3.4.0'
+
+	// https://mvnrepository.com/artifact/org.aspectj/aspectjrt
+	implementation 'org.aspectj:aspectjrt:1.9.22.1'
+
+	// https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
+	implementation 'org.aspectj:aspectjweaver:1.9.22.1'
 
 
 }

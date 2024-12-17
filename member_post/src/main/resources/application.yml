@@ -1,9 +1,17 @@
-# logging:
-#   config: classpath:resources/log4j2.yml
-
 server:
   port: 9999
 spring:
+  devtools:
+    restart:
+      enabled: true
+      additional-paths:
+      - src/main/java
+      - src/main/resources
+      - src/main/webapp
+      additional-exclude: static/**, templates/**
+    livereload:
+      enabled: true
+
   application:
     name: member_post
   datasource:

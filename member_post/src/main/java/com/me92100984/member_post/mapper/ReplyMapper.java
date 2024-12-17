@@ -1,5 +1,4 @@
 package com.me92100984.member_post.mapper;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -22,10 +21,5 @@ public interface ReplyMapper {
 	
 	//마이바티스는 이름이 아니라 타입으로 체크함. 파라미터 2개일 경우 명시해줘야 한다
 	List<Reply> selectList(@Param("pno") Long pno, @Param("cri") ReplyCri cri);
-
 	List<Reply> selectListByMe(Reply reply);
-	
-	
-	
-	
 }

@@ -89,7 +89,7 @@
 	                </tbody>
 	            </table>
 	            
-	            ${pageDto}
+	           
 	            <ul class="pagination justify-content-center my-5">
 	            	<c:if test="${pageDto.doublePrev}">
 	                <li class="page-item"><a class="page-link" href="list?page=${pageDto.startPage-1}&${pageDto.cri.qs}"><i class="fa-solid fa-angles-left"></i></a></li>

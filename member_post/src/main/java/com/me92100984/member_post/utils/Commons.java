@@ -21,5 +21,4 @@ public class Commons {
 		}
 		pw.println("</script>");
 	}
-		
 }

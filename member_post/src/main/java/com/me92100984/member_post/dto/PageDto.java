@@ -58,7 +58,7 @@ public class PageDto {
 	
 	public static void main(String[] args) {
 		PageDto dto = new PageDto(255);
-		System.out.println(dto);
+		// System.out.println(dto);
 	}
 }
 	

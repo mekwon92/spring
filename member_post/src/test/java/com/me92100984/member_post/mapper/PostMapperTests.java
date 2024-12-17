@@ -8,7 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.me92100984.member_post.dto.Criteria;
 
+import lombok.extern.log4j.Log4j2;
+
 @SpringBootTest
+@Log4j2
 public class PostMapperTests {
   @Autowired
   private PostMapper mapper;
@@ -20,12 +23,15 @@ public class PostMapperTests {
 
   @Test
   public void testList() {
+    Criteria cri = new Criteria();
+    log.info(cri);
     mapper.selectList(new Criteria());
   }
 
   @Test
   public void testView() {
-    mapper.selectOne(null);
+    log.info(mapper.selectOne(279L));
+    mapper.selectOne(279L);
   }
   
 }

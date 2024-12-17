@@ -2,7 +2,6 @@ package com.me92100984.member_post.service;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,9 +9,9 @@ import com.me92100984.member_post.dto.Criteria;
 import com.me92100984.member_post.mapper.AttachMapper;
 import com.me92100984.member_post.mapper.PostMapper;
 import com.me92100984.member_post.mapper.ReplyMapper;
-import com.me92100984.member_post.utils.MybatisInit;
 import com.me92100984.member_post.vo.Post;
 
+import jakarta.servlet.ServletContextEvent;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -34,7 +33,7 @@ public class PostServiceImpl implements PostService{
 		// });
 		return 0;
 	}
-	
+
 	@Override
 	public int modify(Post post) {
 			return mapper.update(post);
