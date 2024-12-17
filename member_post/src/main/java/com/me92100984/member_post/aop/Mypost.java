@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 //어노테이션 직접 만들기
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Mypost {
-  String[] id() default "abcd";
+public @interface MyPost {
+  String value() default "";
   
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.me92100984.member_post.aop.Mypost;
+import com.me92100984.member_post.aop.MyPost;
 import com.me92100984.member_post.aop.SigninCheck;
 import com.me92100984.member_post.dto.Criteria;
 import com.me92100984.member_post.dto.PageDto;
@@ -84,6 +84,7 @@ public class PostController {
 
   @PostMapping("modify")
   @SigninCheck
+  @MyPost
   public String postModify(Post post, Criteria cri) {
     log.info(post);
     log.info(cri);

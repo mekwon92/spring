@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
-
+//web.xml 역할
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
@@ -27,4 +27,5 @@ public class WebConfig implements WebMvcConfigurer {
      }
     };
   }
+
 }
