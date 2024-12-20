@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class Post {
 	private String writer;
 	private String content;
 	private Long viewCount;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date regdate;
 	private Date updatedate;
 	private Integer cno;

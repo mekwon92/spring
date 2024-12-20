@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.me92100984.member_post.aop.MyPost;
-import com.me92100984.member_post.aop.SigninCheck;
+import com.me92100984.member_post.aop.annotation.MyPost;
+import com.me92100984.member_post.aop.annotation.SigninCheck;
 import com.me92100984.member_post.dto.Criteria;
 import com.me92100984.member_post.dto.PageDto;
 import com.me92100984.member_post.service.PostService;

@@ -15,6 +15,7 @@ import com.me92100984.member_post.service.MemberService;
 import com.me92100984.member_post.vo.Member;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @AllArgsConstructor
 public class MemberController {
   private MemberService service;
+
   InternalResourceViewResolver resolver;
 
   @GetMapping("mv")
@@ -38,7 +40,6 @@ public class MemberController {
     mav.setViewName("common/index");
     log.info(mav);
     return mav;
-
   }
   
 
@@ -68,7 +69,7 @@ public class MemberController {
   public void signin() {} // 반환 타입이 void인 경우 Spring은 요청 경로와 동일한 이름의 뷰(예: signin.jsp 또는 signin.html)를 자동으로 찾음
 
   @PostMapping("signin") // remember 파라미터에 Optional<String>도 가능 ->세부조정가능
-  public String postSignin(Member member,@RequestParam(required = false, value =  "remember-id") String remember, HttpSession session, RedirectAttributes rttr, HttpServletResponse resp) {
+  public String postSignin(Member member,@RequestParam(required = false, value =  "remember-id") String remember, HttpSession session, RedirectAttributes rttr, HttpServletResponse resp, HttpServletRequest req) {
     log.info(remember);
     log.info(member);
 
@@ -79,7 +80,8 @@ public class MemberController {
 
       // 1-1. 아이디 저장 시 cookie에 remember-id 지정 -yes??
       Cookie cookie = new Cookie("remember-id", member.getId());
-      cookie.setPath("/");
+      //cookie.setPath("/");
+
       if(remember != null) {
         cookie.setMaxAge(60 * 60 * 24 * 7);
       }
@@ -89,11 +91,19 @@ public class MemberController {
       resp.addCookie(cookie);
       
       // 2. redirect index
+      String redirectURL = "/";
+      String url = req.getParameter("url");
+      log.info(url + ":::::::");
+
+      if(url !=null) {
+        redirectURL = url;
+      }
       return "redirect:/"; 
     }
 
     else {
       //실패
+      rttr.addFlashAttribute("msg", "failed");
       return "redirect:signin?msg=failed";
       
       // rttr.addAttribute("msg", "failed");

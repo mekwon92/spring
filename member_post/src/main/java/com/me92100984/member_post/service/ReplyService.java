@@ -17,5 +17,6 @@ public interface ReplyService {
 	
 	Reply findBy(Long rno);
 	
-	Map<String, List<Reply>> list(Long pno, ReplyCri cri, Object writer);
+	//Map<String, List<Reply>> list(Long pno, ReplyCri cri, Object writer);
+	Map<String, List<Reply>> selectList(Long pno,ReplyCri cri,Object writer);
 }

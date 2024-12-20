@@ -1,4 +1,4 @@
-package com.me92100984.member_post.aop;
+package com.me92100984.member_post.aop.aspect;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -9,6 +9,9 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
+import com.me92100984.member_post.aop.annotation.MyPost;
+import com.me92100984.member_post.exception.NotMyPostException;
+import com.me92100984.member_post.exception.UnsignedAuthException;
 import com.me92100984.member_post.vo.Member;
 import com.me92100984.member_post.vo.Post;
 
@@ -28,21 +31,23 @@ public class AuthAspect {
   private HttpServletResponse resp;
   
   @Before("@annotation(com.me92100984.member_post.aop.Mypost)")
-  public void myPost(JoinPoint joinPoint, MyPost myPost) {
+  public void myPost(JoinPoint joinPoint) throws IOException {
     Object o = session.getAttribute("member");
+    if(o == null){
+      throw new UnsignedAuthException("비로그인상태");
+    }
     String id = ((Member)o).getId(); //현재 로그인된 사용자
-
     Object[] args = joinPoint.getArgs();
-    String writerParam = myPost.value();
-    log.info(Arrays.toString(args));
-    log.info(id);
-    log.info(writerParam);
 
-
-    // if(o == null || !((Member)o).getId().equals(post.getWriter())){
-    //   throw new RuntimeException("본인 게시글 아님");
-    // }
-  }
+    for(Object obj : args){
+      if(((Post)obj).getWriter().equals(id)){
+        throw new NotMyPostException("본인 게시글 아님");
+      }
+    }
+    log.error(Arrays.toString(args));
+    log.error(id);
+    
+      }
 
   @Before("@annotation(com.me92100984.member_post.aop.SigninCheck)")
   public void SigninCheck(JoinPoint jp) throws IOException {
@@ -52,7 +57,6 @@ public class AuthAspect {
     if(session.getAttribute("member") == null) {
       String url = "/member/signin?url=" + URLEncoder.encode(req.getRequestURI() + "?" + req.getQueryString(), "utf-8");
       resp.sendRedirect("/msg?msg=" + URLEncoder.encode("로그인이 필요한 페이지입니다.", "utf-8") + "&url=" + url);
-
     }
   }
 }

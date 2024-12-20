@@ -11,11 +11,16 @@ spring:
       additional-exclude: static/**, templates/**
     livereload:
       enabled: true
-
+  servlet:
+    multipart:
+      max-file-size:
+        50MB
+      file-size-threshold:
+        10MB
+      location: c:/upload
   application:
     name: member_post
   datasource:
-  
     # driver-class-name: org.mariadb.jdbc.Driver
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     # url: jdbc:mariadb://np.me92100984.com:3306/post
@@ -32,3 +37,8 @@ mybatis:
   type-aliases-package: com.me92100984.member_post.vo
   configuration:
     map-underscore-to-camel-case: true
+springdoc:
+  swagger-ui:
+    path: /swag
+  upload:
+    path: c:/upload
