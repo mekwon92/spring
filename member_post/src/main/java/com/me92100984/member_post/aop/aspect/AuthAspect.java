@@ -30,33 +30,37 @@ public class AuthAspect {
   private HttpServletRequest req;
   private HttpServletResponse resp;
   
+  @Before("@annotation(com.me92100984.member_post.aop.SigninCheck)")
+  public void SigninCheck(JoinPoint jp) throws IOException {
+    // log.info(req.getRequestURL());
+    // log.info(req.getRequestURI());
+    // log.info(req.getQueryString());
+    String url = "/member/signin?url=" + URLEncoder.encode(req.getRequestURI() + "?" + req.getQueryString(), "utf-8");
+   
+    if(session.getAttribute("member") == null) {
+      resp.sendRedirect("/msg?msg=" + URLEncoder.encode("로그인이 필요한 페이지입니다.", "utf-8") + "&url=" + url);
+    }
+  }
+
+
   @Before("@annotation(com.me92100984.member_post.aop.Mypost)")
   public void myPost(JoinPoint joinPoint) throws IOException {
     Object o = session.getAttribute("member");
+
     if(o == null){
       throw new UnsignedAuthException("비로그인상태");
     }
+
     String id = ((Member)o).getId(); //현재 로그인된 사용자
+
     Object[] args = joinPoint.getArgs();
 
     for(Object obj : args){
-      if(((Post)obj).getWriter().equals(id)){
+      if(obj instanceof Post && !((Post)obj).getWriter().equals(id)){
         throw new NotMyPostException("본인 게시글 아님");
       }
     }
     log.error(Arrays.toString(args));
     log.error(id);
-    
-      }
-
-  @Before("@annotation(com.me92100984.member_post.aop.SigninCheck)")
-  public void SigninCheck(JoinPoint jp) throws IOException {
-    log.info(req.getRequestURL());
-    log.info(req.getRequestURI());
-    log.info(req.getQueryString());
-    if(session.getAttribute("member") == null) {
-      String url = "/member/signin?url=" + URLEncoder.encode(req.getRequestURI() + "?" + req.getQueryString(), "utf-8");
-      resp.sendRedirect("/msg?msg=" + URLEncoder.encode("로그인이 필요한 페이지입니다.", "utf-8") + "&url=" + url);
-    }
   }
 }

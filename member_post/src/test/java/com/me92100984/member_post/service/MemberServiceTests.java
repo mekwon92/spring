@@ -18,7 +18,7 @@ public class MemberServiceTests {
 
   @Test
   public void testFindby(){
-    log.info(service.findBy("dydxo4423"));
+    log.info(service.findBy("mekwon"));
   }
 
   @Test

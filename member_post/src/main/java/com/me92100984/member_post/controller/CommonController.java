@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import io.micrometer.common.lang.Nullable;
 
@@ -19,25 +19,26 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class CommonController {
   @GetMapping({"/","/index"})
-  
+  // @ResponseBody
   public String index(){
-    log.info("inddex");
+    // log.info("index");
     return "common/index";
   }
 
   @RequestMapping(value = "msg")
   public String msg(@ModelAttribute("msg")String msg,
   @ModelAttribute("url") @Nullable String url,Model model) throws UnsupportedEncodingException{
-    log.info(msg);
-    log.info(url);
+    // log.info(msg);
+    // log.info(url);
     if(url != null){
-      int idx = url.indexOf("?url=") + 5;
-      log.info(URLEncoder.encode(msg, "utf-8"));
-      url = url.substring(0,idx) + URLEncoder.encode(url.substring(idx), "utf-8");
-
-
+      // int idx = url.indexOf("?url=") + 5;
+      // log.info(URLEncoder.encode(msg, "utf-8"));
+      // url = url.substring(0,idx) + URLEncoder.encode(url.substring(idx), "utf-8");
+      int idx = url.lastIndexOf("?")+1;
+      String urlStr = url.substring(0,idx) + URLEncoder.encode(url.substring(idx), "utf-8");
+      model.addAttribute("url",urlStr);
     }
-    model.addAttribute("url",url);
+    // model.addAttribute("url",url);
     return "common/msg";
   }
 }

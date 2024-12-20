@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class FileController {
   //업로드
   @PostMapping("upload")
-  public List<Attach> upload(@RequestPart("file") List<MultipartFile> files){
+  public List<Attach> upload(@RequestPart("file") List<MultipartFile> files) throws Throwable,IOException{
     return files.stream().map(Attach::new).toList();
   }
   //다운로드

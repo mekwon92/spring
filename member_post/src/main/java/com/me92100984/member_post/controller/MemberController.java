@@ -91,25 +91,25 @@ public class MemberController {
       resp.addCookie(cookie);
       
       // 2. redirect index
-      String redirectURL = "/";
+      // String redirectURL = "/";
       String url = req.getParameter("url");
-      log.info(url + ":::::::");
+      // log.info(url + ":::::::");
 
       if(url !=null) {
-        redirectURL = url;
+        url = "/";
       }
-      return "redirect:/"; 
+      return "redirect:" + url; 
     }
 
     else {
       //실패
-      rttr.addFlashAttribute("msg", "failed");
-      return "redirect:signin?msg=failed";
+      // rttr.addFlashAttribute("msg", "failed");
+      // return "redirect:signin?msg=failed";
       
       // rttr.addAttribute("msg", "failed");
       
-      // rttr.addFlashAttribute("msg", "failed");
-      // return "redirect:signin";
+      rttr.addFlashAttribute("msg", "failed");
+      return "redirect:signin";
       //forward말고 redirect를 해야하는 이유
     }
   }

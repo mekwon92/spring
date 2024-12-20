@@ -1,12 +1,18 @@
 // const replyService = {};
 const replyService = (function() {
-    const url = "/member_post/reply";
+    const url = "/reply";
+    
+    // $.ajaxSetup({
+    //     contentType: 'application/json; charset=utf-8'
+    // })
+    
     function write(reply, callback) {
         console.log(reply);
         // reply를 JSON화
         // JSON.stringify(arg) :: obj -> json string
         // JSON.parse(arg) :: json -> obj
         const data = JSON.stringify(reply); //보내야할 데이터
+        
         $.post({
             url,
             data
@@ -19,7 +25,8 @@ const replyService = (function() {
     }
 
     function list(pno, cri, callback){
-		let reformedUrl = url + "/list/" + pno;
+		// let reformedUrl = url + "/list/" + pno;
+        let reformedUrl = "";
 		if(cri && cri.lastRno) {
 			reformedUrl += "/" + cri.lastRno;
 
@@ -29,10 +36,15 @@ const replyService = (function() {
 			// console.log(reformedUrl);
 
 		}
+
+
+
+        
         $.getJSON(reformedUrl).done(function(data) {
             if(callback)
                 callback(data);
         });
+
 		// 위랑 같은 역할하는거임(더 간단)
         // $.ajax({
         //     url: url + "/list/" + pno,
@@ -44,7 +56,7 @@ const replyService = (function() {
         // })
     }
     function view(rno, callback){
-        $.getJSON(url + "/" + rno).done(function(data){
+        $.getJSON(url + "/selectone/" + rno).done(function(data){
             if(callback)
                 callback(data);
         })

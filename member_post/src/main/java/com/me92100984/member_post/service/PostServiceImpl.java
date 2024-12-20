@@ -13,10 +13,12 @@ import com.me92100984.member_post.vo.Post;
 
 import jakarta.servlet.ServletContextEvent;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 @Service
 @AllArgsConstructor
 @Transactional
+@Log4j2
 public class PostServiceImpl implements PostService{
 	private PostMapper mapper;
 	private AttachMapper attachMapper;
@@ -26,9 +28,11 @@ public class PostServiceImpl implements PostService{
 	@Override
 	public int write(Post post) { 
 		mapper.insert(post);
+		log.error(post);
 
 		post.getAttachs().forEach(a -> {
 			a.setPno(post.getPno());
+			log.info(a);
 			attachMapper.insert(a);
 		});
 		return 0;

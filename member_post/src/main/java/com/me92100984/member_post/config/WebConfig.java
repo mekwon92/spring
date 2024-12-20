@@ -21,6 +21,7 @@ public class WebConfig implements WebMvcConfigurer {
   @Bean
   public ServletContextListener ServletContextListener(){
     return new ServletContextListener() {
+      
       @Override
       public void contextInitialized(ServletContextEvent sce) {
         sce.getServletContext().setAttribute("cp", sce.getServletContext().getContextPath()+"/");
