@@ -1,12 +1,13 @@
-package com.me92100984.todo;
+package com.me92100984.guestbook;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TodoApplication {
+public class GuestbookApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TodoApplication.class, args);
+		SpringApplication.run(GuestbookApplication.class, args);
 	}
+
 }

@@ -9,14 +9,15 @@
 <body>
   <h1>hello mustache!!</h1>
   <form method="post">
-    <input type="text" name="task" placeholder="할 일 입력">
+    <input type="text" name="task" placeholder="할 일 입력" autofocus>
     <button>Add</button>
   </form>
-
-  <ul>
-    {{#todos}}
-    <li>{{task}}</li>
-    {{/todos}}
-  </ul>
+  <form action="todos/remove">
+    <ul>
+      {{#todos}}
+      <li> {{task}} <button name="id" value="{{id}}">삭제</button> {{#done}}달성{{/done}} {{^done}}<button name="id" value="{{id}}" formaction="todos/modify">미달성{{/done}}</button> </li>
+      {{/todos}}
+    </ul>
+  </form>
 </body>
 </html>

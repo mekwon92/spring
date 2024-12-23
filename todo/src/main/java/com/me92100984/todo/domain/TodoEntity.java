@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 //@Data 사용불가 - toString때문에
-@Entity
+@Entity(name = "todo") //jpql 엔티티 이름 설정. jpql은 별칭 명시해야함
 @Table(name = "tbl_todo")
 @Getter
 @Setter

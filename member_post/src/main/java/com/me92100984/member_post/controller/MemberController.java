@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @AllArgsConstructor
 public class MemberController {
   private MemberService service;
-
   InternalResourceViewResolver resolver;
 
   @GetMapping("mv")
@@ -95,7 +94,7 @@ public class MemberController {
       String url = req.getParameter("url");
       // log.info(url + ":::::::");
 
-      if(url !=null) {
+      if(url != null) {
         url = "/";
       }
       return "redirect:" + url; 
