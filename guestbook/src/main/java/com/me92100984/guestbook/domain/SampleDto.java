@@ -5,8 +5,10 @@ import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Data;
 
+
+//dto : controller <->service
 @Data
-@Builder
+@Builder(toBuilder = true)
 public class SampleDto {
   private Long sno;
   private String first;

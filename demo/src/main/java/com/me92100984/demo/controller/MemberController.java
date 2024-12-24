@@ -15,12 +15,13 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("member")
 public class MemberController {
-    //@Autowired, @Resource, @Inject 중 하나를 선택
     @Autowired
     private MemberService service;
+    //@Autowired, @Resource, @Inject 중 하나를 선택
     //의존성 주입: 스프링 컨테이너에 객체 생성주기를 맡김
-    //DI때문에 얘는 모든걸 하는......
-    //bean을 찾으러 다님 type에 따라 뭔지 찾으러다님 .. 얘들은 noargs나 allargs 중 하나여야 됨.
+    //bean을 찾으러 다님 (type에 따라).. 얘들은 noargs나 allargs 중 하나여야 됨.
+    
+    
     @RequestMapping("")
     public String index(Model model, HttpServletRequest req, String str, Member member, HttpSession session) {
         model.addAttribute("now", service.selectNow());

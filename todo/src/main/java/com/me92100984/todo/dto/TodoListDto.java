@@ -22,7 +22,7 @@ public class TodoListDto {
   }
 
   // dto >> entity
-  public TodoEntity toEntity() {
-    return TodoEntity.builder().id(id).task(task).done(done).build();
-  }
+  // public TodoEntity toEntity() {
+  //   return TodoEntity.builder().id(id).task(task).done(done).build();
+  // }
 }

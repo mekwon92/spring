@@ -85,7 +85,7 @@ public class TodoService {
   // 수정.. jpa영속화
   @Transactional
   public void modify(Long id) {
-    // 값을 가져와서 수정
+    // 값을 가져와서 수정 -  @setter은 비추천임. 원래는 final해야하는거니까.....
     // Optional<TodoEntity> entity =  repository.findById(id);
     // entity.ifPresent(e->{ e.setDone(true); repository.save(e); });
     

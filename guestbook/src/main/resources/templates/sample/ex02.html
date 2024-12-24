@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+  <script src='main.js'></script>
+</head>
+<body>
+  <ul>
+    <!--/* 타임리프 주석ㅋ
+    <li th:each="dto, state : ${list}" th:if="${dto.sno % 5 == 0}">
+      [[${state.index}]]--[[${state.count}]]--[[${dto}]]
+    </li>
+
+
+    <li th:each="dto, state : ${list}">
+      <span th:if="${dto.sno % 5 == 0}" th:text="${'--------------' + dto.sno}"></span>
+      <span th:unless="${dto.sno % 5 == 0}" th:text="${dto.first}"></span>
+
+      밑의 th:block는 여러줄처리도 가능하다!
+    </li>
+    */-->
+
+    <!--/*
+    <li th:each="dto, state : ${list}" th:th:text="${dto.sno % 5 == 3} ? ${dto.sno}" : ${dto.first}></li>
+     
+    3항연산자를 이런식으로 쓸 수도 있다.. nullish 연산자도 참고해보자
+    <li th:each="dto, state : ${list}" th:th:text="${dto.sno % 5 == 3} ? ${dto.sno}"></li>
+    */-->
+
+    <th:block th:each="dto : ${list}">
+      <li th:th:text="${dto.sno % 5 == 0} ? ${dto.sno} : ${dto.first}"></li>
+      <li th:th:text="${dto.sno % 5 == 0} ? ${dto.sno} : ${dto.first}"></li>
+    </th:block>
+
+
+
+
+  </ul>
+</body>
+</html>

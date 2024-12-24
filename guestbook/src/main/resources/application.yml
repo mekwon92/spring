@@ -20,5 +20,9 @@ spring:
       additional-paths:
       - src/main/java
       - src/main/resources
+      - templates
+# server:
+#   servlet:
+#     context-path: /guestbook
   
       
