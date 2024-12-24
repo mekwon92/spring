@@ -1,7 +1,6 @@
 package com.me92100984.guestbook.domain.dto;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import com.me92100984.guestbook.domain.entity.GuestbookEntity;
 
@@ -31,11 +30,7 @@ public class GuestbookViewDto {
   private LocalDateTime modDate;
 
 
-  public GuestbookViewDto(Optional<GuestbookEntity> opt) {
-    if(!opt.isPresent()){
-      return;
-    }
-    GuestbookEntity entity = opt.get();
+  public GuestbookViewDto(GuestbookEntity entity) {
     gno = entity.getGno();
     title = entity.getTitle();
     content = entity.getContent();
