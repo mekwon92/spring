@@ -55,8 +55,4 @@ public class SampleController {
   public void exLayout1() {
     log.info("exLayout1()");
   }
-  
-
-
-
 }

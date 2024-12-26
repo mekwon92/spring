@@ -75,3 +75,14 @@ tasks.named('test') {
 sourceSets {
     main.java.srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
 }
+
+tasks.compileJava {
+    // QueryDSL 파일 생성 디렉토리 삭제(빌드 전에 Q삭제)
+    doFirst {
+        def generatedDir = file("$projectDir/build/generated")
+        if (generatedDir.exists()) {
+            println "Cleaning QueryDSL generated directory: ${generatedDir}"
+            generatedDir.deleteDir()
+        }
+    }
+}

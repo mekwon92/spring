@@ -2,7 +2,7 @@ package com.me92100984.guestbook.domain.dto;
 
 import java.time.LocalDateTime;
 
-import com.me92100984.guestbook.domain.entity.GuestbookEntity;
+import com.me92100984.guestbook.domain.entity.Guestbook;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -30,7 +30,7 @@ public class GuestbookViewDto {
   private LocalDateTime modDate;
 
 
-  public GuestbookViewDto(GuestbookEntity entity) {
+  public GuestbookViewDto(Guestbook entity) {
     gno = entity.getGno();
     title = entity.getTitle();
     content = entity.getContent();

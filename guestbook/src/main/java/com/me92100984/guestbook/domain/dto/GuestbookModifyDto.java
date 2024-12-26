@@ -1,6 +1,6 @@
 package com.me92100984.guestbook.domain.dto;
 
-import com.me92100984.guestbook.domain.entity.GuestbookEntity;
+import com.me92100984.guestbook.domain.entity.Guestbook;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,8 +20,8 @@ public class GuestbookModifyDto {
   private String content;
   private String writer;
 
-  public GuestbookEntity toEntity() {
-    return GuestbookEntity.builder()
+  public Guestbook toEntity() {
+    return Guestbook.builder()
     .gno(gno)
     .title(title)
     .content(content)

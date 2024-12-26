@@ -9,7 +9,7 @@ import com.me92100984.guestbook.domain.dto.GuestbookListDto;
 import com.me92100984.guestbook.domain.dto.GuestbookModifyDto;
 import com.me92100984.guestbook.domain.dto.GuestbookViewDto;
 import com.me92100984.guestbook.domain.dto.GuestbookWriteDto;
-import com.me92100984.guestbook.domain.entity.GuestbookEntity;
+import com.me92100984.guestbook.domain.entity.Guestbook;
 import com.me92100984.guestbook.repository.GuestbookRepository;
 
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class GuestbookServiceImpl implements GuestbookService {
 
   @Override
   public GuestbookViewDto get(Long gno) {
-    Optional<GuestbookEntity> opt = repository.findById(gno);
+    Optional<Guestbook> opt = repository.findById(gno);
     if(!opt.isPresent()) {
       return null;
     }
