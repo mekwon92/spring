@@ -1,0 +1,28 @@
+package com.me92100984.guestbook.domain.dto;
+
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+
+@Builder
+@AllArgsConstructor
+@Data
+public class PageRequestDto {
+  private int page;
+  private int size;
+
+  public PageRequestDto() {
+    page = 1;
+    size = 10;
+  }
+
+  //pageable로 변환될 메서드
+  public Pageable getPageable(Sort sort) {
+    return PageRequest.of(page - 1, size, sort);
+  }
+}

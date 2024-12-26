@@ -1,7 +1,6 @@
 package com.me92100984.guestbook.controller;
 
 import java.time.LocalDateTime;
-import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.me92100984.guestbook.domain.SampleDto;
 
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller

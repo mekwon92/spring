@@ -15,7 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.me92100984.guestbook.domain.entity.Guestbook;
-import com.me92100984.guestbook.domain.entity.QGuestbookEntity;
+import com.me92100984.guestbook.domain.entity.QGuestbook;
 import com.me92100984.guestbook.repository.GuestbookRepository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -98,10 +98,7 @@ public class GuestbookRepositoryTests {
     // .writer(entity.getWriter())
     // .build();
     // repository.save(modifiedEntity);
-    
   }
-
-
 
   @Test
   public void testQuerydsl() {
@@ -113,7 +110,7 @@ public class GuestbookRepositoryTests {
     Pageable pageable = PageRequest.of(0,10,Sort.by(Direction.DESC, "gno"));
     
     // q도메인관련 객체 취득 GuestbookEntity의 필드에 접근
-    QGuestbookEntity qGuestbookEntity = QGuestbookEntity.guestbookEntity;
+    QGuestbook qGuestbookEntity = QGuestbook.guestbook;
 
     String keyword = "12";
 
@@ -130,7 +127,7 @@ public class GuestbookRepositoryTests {
     // builder.or(qGuestbookEntity.writer.contains(keyword));
 
 
-    // 조건과 페이징 정보를 기반으로 데이터 검색
+    // 조건과 페이징 정보를 기반으로 데이터 검색 page도 list와같은 일종의 자료형..?
     Page<Guestbook> result = repository.findAll(builder, pageable); 
     result.forEach(log::info);
   }
