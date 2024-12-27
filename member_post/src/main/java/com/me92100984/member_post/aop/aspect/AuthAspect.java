@@ -30,7 +30,7 @@ public class AuthAspect {
   private HttpServletRequest req;
   private HttpServletResponse resp;
   
-  @Before("@annotation(com.me92100984.member_post.aop.SigninCheck)")
+  @Before("@annotation(com.me92100984.member_post.aop.annotation.SigninCheck)")
   public void SigninCheck(JoinPoint jp) throws IOException {
     // log.info(req.getRequestURL());
     // log.info(req.getRequestURI());
@@ -43,7 +43,7 @@ public class AuthAspect {
   }
 
 
-  @Before("@annotation(com.me92100984.member_post.aop.Mypost)")
+  @Before("@annotation(com.me92100984.member_post.aop.annotation.Mypost)")
   public void myPost(JoinPoint joinPoint) throws IOException {
     Object o = session.getAttribute("member");
 

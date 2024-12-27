@@ -53,14 +53,22 @@ public class GuestbookServiceImpl implements GuestbookService {
       return resultDto;
     }
 
-  @Override
-  public GuestbookViewDto get(Long gno) {
-    Optional<Guestbook> opt = repository.findById(gno);
-    if(!opt.isPresent()) {
-      return null;
+  // @Override
+  // public GuestbookViewDto get(Long gno) {
+  //   Optional<Guestbook> opt = repository.findById(gno);
+  //   if(!opt.isPresent()) {
+  //     return null;
+  //   }
+  //   return new GuestbookViewDto(opt.get());
+  // }
+  
+  
+    @Override
+    public GuestbookDto read(Long gno) {
+      Optional<Guestbook> opt = repository.findById(gno);
+      return opt.isPresent() ? toDto(opt.get()) : null;
     }
-    return new GuestbookViewDto(opt.get());
-  }
+  
 
   @Override
   public void modify(GuestbookModifyDto dto) {

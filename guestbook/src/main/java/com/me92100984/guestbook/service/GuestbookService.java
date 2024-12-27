@@ -18,11 +18,12 @@ public interface GuestbookService {
   // List<GuestbookListDto> list();
   PageResultDto<GuestbookDto, Guestbook> list(PageRequestDto dto);
 
+  // GuestbookViewDto get(Long gno);
+  GuestbookDto read(Long gno);
 
   void modify(GuestbookModifyDto dto);
   void remove(Long pno);
 
-  GuestbookViewDto get(Long gno);
 
 
 

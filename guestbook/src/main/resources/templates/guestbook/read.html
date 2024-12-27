@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
+    <th:block th:fragment="content">
+      <h1>Guest book write</h1>
+      <form method="post">
+        <div class="mb-3 mt-3">
+          <label for="gno" class="form-label">Number:</label>
+          <input type="text" class="form-control" id="gno" placeholder="Enter title" name="title" th:value="${dto.gno}" readonly>
+        </div>
+
+        <div class="mb-3 mt-3">
+          <label for="title" class="form-label">Title:</label>
+          <input type="text" class="form-control" id="title" placeholder="Enter title" name="title" th:value="${dto.title}" readonly>
+        </div>
+
+        <div class="mb-3">
+          <label for="content" class="form-label">Content:</label>
+          <textarea class="form-control" rows="5" id="content" name="content" placeholder="Enter content" readonly>[[${dto.content}]]</textarea>
+        </div>
+        
+        <div class="mb-3">
+          <label for="writer" class="form-label">Writer:</label>
+          <input type="text" class="form-control" id="writer" placeholder="Enter writer" name="writer" th:value="${dto.writer}" readonly>
+        </div>
+        
+        <div class="mb-3">
+          <label for="writer" class="form-label">Regdate:</label>
+          <input type="text" class="form-control" id="regDate" placeholder="Enter regDate" name="regDate" th:value="${dto.regDate}" readonly>
+        </div>
+        
+        <div class="mb-3">
+          <label for="modDate" class="form-label">Moddate:</label>
+          <input type="text" class="form-control" id="modDate" placeholder="Enter modDate" name="modDate" th:value="${dto.modDate}" readonly>
+        </div>
+        
+        <a th:href="@{/guestbook/modify(gno=${dto.gno}, page=${pageDto.page})}" class="btn btn-primary">Modify</a>
+        <a th:href="@{/guestbook/list(page=${pageDto.page})}" class="btn btn-primary">List</a>
+      </form>
+
+    </th:block>
+  </th:block>
+</html>
