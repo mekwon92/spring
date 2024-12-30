@@ -21,8 +21,10 @@ public interface GuestbookService {
   // GuestbookViewDto get(Long gno);
   GuestbookDto read(Long gno);
 
-  void modify(GuestbookModifyDto dto);
-  void remove(Long pno);
+  // Long modify(GuestbookModifyDto dto);
+  void modify(GuestbookDto dto);
+  
+  void remove(Long gno);
 
 
 

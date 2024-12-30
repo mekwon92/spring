@@ -38,14 +38,14 @@ public class GuestbookServiceTests {
 
   @Test
   public void testList() {
-    service.list(new PageRequestDto(2, 10)).getDtoList().forEach(log::info);
-    //result에 뭐있는지찍어보기!
+    //service.list(new PageRequestDto()).getDtoList().forEach(log::info);
 
-    PageResultDto<GuestbookDto, Guestbook> dto = service.list(new PageRequestDto(2, 10)); 
+    PageRequestDto dto = PageRequestDto.builder().page(1).size(10).type("TC").keyword("%제목").build();
+    PageResultDto<GuestbookDto, Guestbook> resultDto = service.list(dto); 
 
     log.info(dto);
-    dto.getPageList().forEach(log::info);
-    
+    resultDto.getDtoList().forEach(log::info);
+
 
 
   }  
