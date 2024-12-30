@@ -3,10 +3,6 @@ package com.me92100984.guestbook.service;
 import java.util.List;
 
 import com.me92100984.guestbook.domain.dto.GuestbookDto;
-import com.me92100984.guestbook.domain.dto.GuestbookListDto;
-import com.me92100984.guestbook.domain.dto.GuestbookModifyDto;
-import com.me92100984.guestbook.domain.dto.GuestbookViewDto;
-import com.me92100984.guestbook.domain.dto.GuestbookWriteDto;
 import com.me92100984.guestbook.domain.dto.PageRequestDto;
 import com.me92100984.guestbook.domain.dto.PageResultDto;
 import com.me92100984.guestbook.domain.entity.Guestbook;

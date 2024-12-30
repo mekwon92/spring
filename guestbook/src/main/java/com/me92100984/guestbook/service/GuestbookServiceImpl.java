@@ -11,10 +11,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.me92100984.guestbook.domain.dto.GuestbookDto;
-import com.me92100984.guestbook.domain.dto.GuestbookListDto;
-import com.me92100984.guestbook.domain.dto.GuestbookModifyDto;
-import com.me92100984.guestbook.domain.dto.GuestbookViewDto;
-import com.me92100984.guestbook.domain.dto.GuestbookWriteDto;
 import com.me92100984.guestbook.domain.dto.PageRequestDto;
 import com.me92100984.guestbook.domain.dto.PageResultDto;
 import com.me92100984.guestbook.domain.entity.Guestbook;

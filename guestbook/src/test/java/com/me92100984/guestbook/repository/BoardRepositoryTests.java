@@ -7,6 +7,11 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,9 +60,18 @@ public class BoardRepositoryTests {
   }
 
   @Test
-  public void testSelectlist() {
-
+  public void testetBoardWithReplyCount() {
+    Pageable pageable = PageRequest.of(0,10,Sort.by(Direction.DESC,"bno"));
+    Page<Object[]> result = repository.getBoardWithReplyCount(pageable);
+    result.forEach(arr -> log.info(Arrays.toString(arr)));
   }
+
+  @Test
+  public void testgetBoardByBno() {
+    Object[] arr = repository.getBoardByBno(2L);
+    log.info(Arrays.toString(arr));
+  }
+  
 
   @Test
   @Transactional// sql을 2번 처리함
