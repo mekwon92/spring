@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.me92100984.guestbook.domain.entity.Guestbook;
 import com.me92100984.guestbook.domain.entity.QGuestbook;
@@ -33,18 +34,19 @@ public class GuestbookRepositoryTests {
     log.info(repository);
   }
 
-  // @Test
-  // public void testInsert() {
-  //   repository.saveAll(
-  //     IntStream.rangeClosed(1, 300).mapToObj(i -> {
-  //       return GuestbookEntity.builder()
-  //       .title("제목" + i)
-  //       .content("내용" + i)
-  //       .writer("작성자" + (i % 10))
-  //       .build();
-  //     }).toList()
-  //   );
-  // }
+  @Test
+  @Transactional //DB에는반영안됨?
+  public void testInsert() {
+    repository.saveAll(
+      IntStream.rangeClosed(1, 300).mapToObj(i -> {
+        return Guestbook.builder()
+        .title("제목" + i)
+        .content("내용" + i)
+        .writer("작성자" + (i % 10))
+        .build();
+      }).toList()
+    );
+  }
 
   @Test
   public void testSelect() {

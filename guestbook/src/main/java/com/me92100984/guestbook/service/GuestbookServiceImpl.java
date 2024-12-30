@@ -90,24 +90,36 @@ public class GuestbookServiceImpl implements GuestbookService {
   }
   
   // @Override
-  // public void remove(Long pno) {
-  //   repository.deleteById(pno);
+  // public void remove(Long gno) {
+  //   repository.deleteById(gno);
   // }
-
   
-
   private BooleanBuilder getSearch(PageRequestDto requestDto) {
     String type = requestDto.getType();
     BooleanBuilder booleanBuilder = new BooleanBuilder();
     QGuestbook qGuestbook = QGuestbook.guestbook;
+
+    // 기본 조건: gno > 0
     BooleanExpression expression = qGuestbook.gno.gt(0L);
     booleanBuilder.and(expression);
+
+    // type이 없거나 공백일 경우 기본 조건만 반환
     if(type == null || type.trim().isEmpty()) {
       return booleanBuilder;
     }
     
-    BooleanBuilder conditionalBuilder = new BooleanBuilder();
+    // keyword 가져오기
     String keyword = requestDto.getKeyword();
+    
+    // keyword가 null이거나 빈 문자열일 경우 처리
+    if (keyword == null || keyword.trim().isEmpty()) {
+        return booleanBuilder;
+    }
+
+
+    BooleanBuilder conditionalBuilder = new BooleanBuilder();
+    
+    // type에 따라 조건 추가
     if(type.contains("T")) {
       conditionalBuilder.or(qGuestbook.title.contains(keyword));
     }
@@ -117,9 +129,8 @@ public class GuestbookServiceImpl implements GuestbookService {
     if(type.contains("W")) {
       conditionalBuilder.or(qGuestbook.title.contains(keyword));
     }
+    // 최종 조건 결합
     booleanBuilder.and(conditionalBuilder);
     return booleanBuilder;
   }
-  
-  
 }

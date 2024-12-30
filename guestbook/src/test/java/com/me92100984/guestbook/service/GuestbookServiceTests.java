@@ -2,9 +2,12 @@ package com.me92100984.guestbook.service;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.me92100984.guestbook.domain.dto.GuestbookDto;
 import com.me92100984.guestbook.domain.dto.PageRequestDto;
@@ -20,13 +23,16 @@ public class GuestbookServiceTests {
   @Autowired
   private GuestbookService service;
   
+    
   
   @Test
+  @DisplayName("글 작성 서비스 테스트")
+  @Transactional
   public void testWrite() {
     
     GuestbookDto dto = GuestbookDto.builder()
-    .title("kk")
-    .content("내용")
+    .title("서비스 테스트 제목")
+    .content("서비스 테스트 내용")
     .writer("작성자")
     .build();
     
@@ -45,10 +51,5 @@ public class GuestbookServiceTests {
 
     log.info(dto);
     resultDto.getDtoList().forEach(log::info);
-
-
-
   }  
-  
-  
 }

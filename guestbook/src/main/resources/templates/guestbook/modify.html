@@ -35,11 +35,15 @@
         </div>
 
         <input type="hidden" name="page" th:value="${pageDto.page}">
+        <input type="hidden" name="type" th:value="${pageDto.type}">
+        <input type="hidden" name="keyworld" th:value="${pageDto.keyword}">
         
         <button class="btn btn-primary">Modify</button>
         <!-- formmethod="get"넣으면 파라미터확인가능,, -->
         <button class="btn btn-danger" formaction="remove">Remove</button>
-        <a th:href="@{/guestbook/list(page=${pageDto.page})}" class="btn btn-primary">List</a>
+        <a th:href="@{/guestbook/list(page=${pageDto.page},
+        type=${pageDto.type},
+        keyword=${pageDto.keyword})}" class="btn btn-success">List</a>
       </form>
 
     </th:block>
