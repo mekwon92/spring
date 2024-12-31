@@ -49,6 +49,8 @@ public class BoardControllerTests {
     mockMvc.perform(get("/api/v1/board/list")
     .param("page", "3")
     .param("size","5")
+    .param("type","TC")
+    .param("keyword","8")
     )
     .andExpect(status().isOk())
     .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE));

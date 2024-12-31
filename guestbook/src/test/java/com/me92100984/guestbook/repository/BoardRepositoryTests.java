@@ -88,7 +88,9 @@ public class BoardRepositoryTests {
 
   @Test
   public void testSearchPage() {
-    Pageable pageable = PageRequest.of(0,10,Sort.by(Direction.DESC, "bno"));
+    Pageable pageable = PageRequest.of(0,10,Sort.by(Direction.DESC, "bno", "title"));
     repository.searchPage("TW", "10" , pageable);
+
+
   }
 }

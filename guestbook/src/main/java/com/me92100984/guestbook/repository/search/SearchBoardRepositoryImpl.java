@@ -3,7 +3,9 @@ package com.me92100984.guestbook.repository.search;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
 import com.me92100984.guestbook.domain.entity.Board;
@@ -12,7 +14,10 @@ import com.me92100984.guestbook.domain.entity.QReply;
 import com.me92100984.guestbook.domain.entity.QMember;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.JPQLQuery;
 
 import lombok.extern.log4j.Log4j2;
@@ -79,9 +84,28 @@ public class SearchBoardRepositoryImpl extends QuerydslRepositorySupport impleme
       booleanBuilder.and(conditionBuilder);
     }
     tuple.where(booleanBuilder);
+    // order by
+    Sort sort = pageable.getSort();
+
+    sort.stream().forEach(order -> {
+      Order direction = order.isAscending() ? Order.ASC : Order.DESC;
+      String prop = order.getProperty();
+
+      PathBuilder<Board> orderByExpression = new PathBuilder<>(Board.class, "board");
+      tuple.orderBy(new OrderSpecifier<>(direction, orderByExpression.get(prop, String.class)));
+
+    });
     tuple.groupBy(board);
+
+    // page
+    tuple.offset(pageable.getOffset());
+    tuple.limit(pageable.getPageSize());
+
     List<Tuple> result = tuple.fetch();
-    return null;
+
+    long count = tuple.fetchCount();
+
+    return new PageImpl<>(result.stream().map(t -> t.toArray()).toList(), pageable, count);
   }
 
   

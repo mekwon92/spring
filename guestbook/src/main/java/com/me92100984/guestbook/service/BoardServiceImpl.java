@@ -45,8 +45,9 @@ public class BoardServiceImpl implements BoardService {
   @Override
   public PageResultDto<BoardDto, Object[]> list(PageRequestDto dto) {
     Pageable pageable = dto.getPageable(Sort.by(Direction.DESC, "bno"));
-
-    Page<Object[]> page = repository.getBoardWithReplyCount(pageable);
+    // BooleanBuilder booleanBuilder = getSearch(dto);
+    // Page<Object[]> page = repository.getBoardWithReplyCount(pageable);
+    Page<Object[]> page = repository.searchPage(dto.getType(), dto.getKeyword(), pageable);
     Function<Object[], BoardDto> fn = e -> toDto(e);
     PageResultDto<BoardDto, Object[]> resultDto = new PageResultDto<>(page, fn);
     return resultDto;
