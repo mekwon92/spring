@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -24,7 +26,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @Log4j2
 @RestController //restcontroller 이용해서
-@RequestMapping("api/v1/board/")
+@RequestMapping("api/v1/board")
 public class BoardController {
   
   @Autowired
@@ -57,4 +59,10 @@ public class BoardController {
     service.modify(dto);
     return ResponseEntity.ok().body("modify success" + service.get(dto.getBno()));
   }
+
+  @GetMapping("test")
+  public String test() {
+      return "test";
+  }
+  
 }
