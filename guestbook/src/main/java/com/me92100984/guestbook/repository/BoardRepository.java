@@ -26,7 +26,7 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 
   //회원, 게시글, 댓글갯수
   @Query("select m, b, count(r) from tbl_board b left join member m left join tbl_reply r on b=r.board where b.bno= :bno")
-  Object[] getBoardByBno(@Param("bno") Long bno);
+  Object getBoardByBno(@Param("bno") Long bno);
 
   
 }

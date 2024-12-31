@@ -68,17 +68,15 @@ public class BoardRepositoryTests {
 
   @Test
   public void testgetBoardByBno() {
-    Object[] arr = repository.getBoardByBno(2L);
+    Object[] arr = (Object[])repository.getBoardByBno(2L);
     log.info(Arrays.toString(arr));
   }
-  
 
   @Test
   @Transactional// sql을 2번 처리함
   public void testSelectOne() {
     Board board = repository.findById(2L).get();
     log.info(board);
-
     log.info(board.getMember()); //transactional없을 때 오류뜸. 필요할 때 2번처리..? 
 
   }
@@ -87,7 +85,4 @@ public class BoardRepositoryTests {
   public void testUpdate() {
     
   }
-
-
-
 }

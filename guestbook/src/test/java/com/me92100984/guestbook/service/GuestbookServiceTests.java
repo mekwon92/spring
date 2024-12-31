@@ -52,4 +52,6 @@ public class GuestbookServiceTests {
     log.info(dto);
     resultDto.getDtoList().forEach(log::info);
   }  
+
+
 }

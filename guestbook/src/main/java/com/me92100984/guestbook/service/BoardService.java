@@ -1,6 +1,11 @@
 package com.me92100984.guestbook.service;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.me92100984.guestbook.domain.dto.BoardDto;
+import com.me92100984.guestbook.domain.dto.PageRequestDto;
+import com.me92100984.guestbook.domain.dto.PageResultDto;
 import com.me92100984.guestbook.domain.entity.Board;
 import com.me92100984.guestbook.domain.entity.Member;
 
@@ -16,10 +21,15 @@ public interface BoardService {
   
   default BoardDto toDto(Object[] arr) {
     if(arr == null) return null;
+
     BoardDto.BoardDtoBuilder builder = BoardDto.builder();
+    boolean containBoard = false;
+
     for(Object o : arr) {
+      if(o == null) continue;
+      
       Class<?> cls = o.getClass();
-      if(cls == int.class || cls == Integer.class) {
+      if(cls == Long.class || cls == long.class) {
         builder.replyCnt(Integer.parseInt(o.toString()));
       }
       else if(cls == Member.class) {
@@ -27,6 +37,7 @@ public interface BoardService {
         builder.memberName(((Member)o).getName());
       }
       else if(cls == Board.class) {
+        containBoard = true;
         Board b = (Board)o;
         builder.bno(b.getBno());
         builder.title(b.getTitle());
@@ -35,6 +46,19 @@ public interface BoardService {
         builder.modDate(b.getModDate());
       }
     }
-    return builder.build();
+    return containBoard ? builder.build() : null;
   }
+
+  //
+  Long register(BoardDto dto);
+
+  BoardDto get(Long bno);
+
+  PageResultDto<BoardDto, Object[]> list(PageRequestDto dto);
+
+  void modify(BoardDto dto);
+
+  void remove(Long bno);
+
+
 }
