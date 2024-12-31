@@ -7,11 +7,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.me92100984.guestbook.domain.entity.Board;
-import com.me92100984.guestbook.domain.entity.Member;
+import com.me92100984.guestbook.repository.search.SearchBoardRepository;
 
-public interface BoardRepository extends JpaRepository<Board, Long>{
+@Repository
+public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoardRepository {
   @Query("select b,m from tbl_board b left join member m where b.bno = :bno") 
   //tbl_board는 entity 이름을 바꾸었기 때문에~ entity를 가리키는 것임.. member는 필드의 member이기때문에 tbl_member이 아님.. 
   // JPQL에서 ON 절을 명시하지 않아도, JPA는 엔티티 간의 매핑된 관계(@ManyToOne, @OneToMany 등)를 기반으로 자동으로 적절한 JOIN 조건을 생성 - on 생략 가능..

@@ -82,7 +82,13 @@ public class BoardRepositoryTests {
   }
 
   @Test
-  public void testUpdate() {
-    
+  public void testSearch1() {
+    repository.search1();
+  }
+
+  @Test
+  public void testSearchPage() {
+    Pageable pageable = PageRequest.of(0,10,Sort.by(Direction.DESC, "bno"));
+    repository.searchPage("TW", "10" , pageable);
   }
 }
