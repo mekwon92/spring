@@ -2,6 +2,7 @@ package com.me92100984.club.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,7 +29,8 @@ public class SecurityConfig {
         )
           // 기본 로그인 폼 활성화
         .formLogin(f -> f.permitAll())
-        .logout(l -> l.logoutUrl("/member/signout"));
+        .logout(l -> l.logoutUrl("/member/signout"))
+        .oauth2Login(Customizer.withDefaults());;
     return http.build();
   }
 }
