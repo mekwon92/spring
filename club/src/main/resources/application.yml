@@ -3,20 +3,21 @@ spring:
     name: club
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:mariadb://np.me92100984.com:3306/guestbook
-    username: guestbook
+    url: jdbc:log4jdbc:mariadb://np.me92100984.com:3306/security
+    username: security
     password: 1234
   jpa:
     hibernate:
-      ddl-auto: update #배포시 제거 
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
-        format_sql: true #sql 로그 출력
-        use_sql_comments: true
+        format_sql: true
   
   thymeleaf:
     cache: false
+    prefix: classpath:/templates/
+    suffix: .html
   
   devtools:
     restart:
@@ -28,5 +29,12 @@ spring:
 # server:
 #   servlet:
 #     context-path: /guestbook
+
+  security:
+    user:
+      name: user1
+      password: $2a$10$Pf1VFRXhQzcT7rSzjdKRhe3qrigqqiTjWgU/y25FszG4c8oIE3vlu #1234
+      roles:
+      - USER #ENUM으로 관리
   
       
