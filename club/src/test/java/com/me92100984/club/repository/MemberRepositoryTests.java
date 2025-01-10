@@ -64,5 +64,8 @@ public class MemberRepositoryTests {
     UserDetailsService service;
     User user;
   }
+
+
+  
 }
 

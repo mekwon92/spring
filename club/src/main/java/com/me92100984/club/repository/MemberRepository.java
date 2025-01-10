@@ -8,6 +8,6 @@ import com.me92100984.club.entity.Member;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
   Member findByEmail(String email);
-  Member findByEmailAndFromSocial(String email, boolean fromSocial);
+  Member findByEmailAndFromSocial(String email, Boolean fromSocial);
   
 } 

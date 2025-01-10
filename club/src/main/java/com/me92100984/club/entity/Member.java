@@ -20,7 +20,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
+// @ToString
 public class Member extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class Member extends BaseEntity {
   private String email;
   private String password;
   private String name;
-  private boolean fromSocial;
+  private Boolean fromSocial;
 
   @Builder.Default
   @ElementCollection(fetch = FetchType.LAZY)

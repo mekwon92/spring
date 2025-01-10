@@ -51,13 +51,13 @@ public class BoardController {
   @PostMapping
   public ResponseEntity<?> register(@RequestBody BoardDto dto) {
     service.register(dto);
-    return ResponseEntity.ok().body("success" + service.get(dto.getBno()));
+    return ResponseEntity.ok().body("success");
   }
 
   @PutMapping("{bno}")
   public ResponseEntity<?> modify(@RequestBody BoardDto dto) {
     service.modify(dto);
-    return ResponseEntity.ok().body("modify success" + service.get(dto.getBno()));
+    return ResponseEntity.ok().body("modify success");
   }
 
   @GetMapping("test")
