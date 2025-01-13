@@ -29,25 +29,25 @@ public class ApiCheckFilter extends OncePerRequestFilter {
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
     throws ServletException, IOException {
-      if(antPathMatcher.match(pattern, request.getRequestURI())) {
-        log.info("============== api check filter ==========="); 
-        log.info(request.getRequestURI());
+    if(antPathMatcher.match(pattern, request.getRequestURI())) {
+      log.info("============== api check filter ==========="); 
+      log.info(request.getRequestURI());
 
-        if(checkAuthHeader(request)) {
-          filterChain.doFilter(request, response);
-        }
-        else {
-          response.setContentType("application/json; charset=utf-8");
-          response.setStatus(403);
-          JSONObject jsonObject = new JSONObject();
-          jsonObject.put("code", 403);
-          jsonObject.put("message", "FAIL CHECK API TOKEN");
-
-          response.getWriter().print(jsonObject);
-        }
-        return; //기존동작 방지
+      if(checkAuthHeader(request)) {
+        filterChain.doFilter(request, response);
       }
-      // filterChain.doFilter(request, response); //여기로 안떨어짐
+      else {
+        response.setContentType("application/json; charset=utf-8");
+        response.setStatus(403);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", 403);
+        jsonObject.put("message", "FAIL CHECK API TOKEN");
+
+        response.getWriter().print(jsonObject);
+      }
+      return;
+    }
+    filterChain.doFilter(request, response);
    }
 
    private boolean checkAuthHeader(HttpServletRequest request){

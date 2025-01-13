@@ -14,7 +14,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.me92100984.club.security.filter.ApiCheckFilter;
 import com.me92100984.club.security.filter.ApiLoginFilter;
+import com.me92100984.club.security.handler.ApiLoginFailHandler;
 import com.me92100984.club.security.handler.LoginSuccessHandler;
+import com.me92100984.club.security.util.JWTUtil;
 
 
 @Configuration
@@ -39,11 +41,16 @@ public class SecurityConfig {
     return new ApiCheckFilter("/api/v1/**");
   }
 
+  @Bean
+  public JWTUtil jwtUtil() {
+    return new JWTUtil();
+  }
 
   @Bean 
   public ApiLoginFilter apiLoginFilter(AuthenticationManager authenticationManager) throws Exception{
-    ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/api/login");
+    ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/api/login", jwtUtil());
     apiLoginFilter.setAuthenticationManager(authenticationManager);
+    apiLoginFilter.setAuthenticationFailureHandler(new ApiLoginFailHandler());
     return apiLoginFilter;
   }
 
@@ -57,21 +64,23 @@ public class SecurityConfig {
     http
       .csrf(csrf -> csrf.disable()) // CSRF 비활성화 (필요에 따라 활성화)
       .authorizeHttpRequests(auth -> auth
-          // .requestMatchers("/sample/all").permitAll() // `/public/` 경로는 인증 없이 접근 가능
-          // .requestMatchers("/sample/member").hasRole("USER")
+          .requestMatchers("/sample/all").permitAll() // `/public/` 경로는 인증 없이 접근 가능
+          .requestMatchers("/sample/member").hasRole("USER")
           // // .requestMatchers("/sample/admin").hasRole("ADMIN")
-          // .anyRequest().authenticated() // 나머지는 인증 필요
-          .anyRequest().permitAll()
+          .anyRequest().authenticated() // 나머지는 인증 필요
       )
       .formLogin(f -> f.permitAll()) // 기본 로그인 폼 활성화
+      .userDetailsService(userDetailsService)
       .logout(l -> l.logoutUrl("/member/signout"))
       .oauth2Login(o -> o.successHandler(loginSuccessHandler()))
-      .rememberMe(r -> r.tokenValiditySeconds(60 * 60 * 24 * 14).userDetailsService(userDetailsService)
-        .rememberMeCookieName("remember-id"));
+      // .rememberMe(r -> r.tokenValiditySeconds(60 * 60 * 24 * 14)
+      // .rememberMeCookieName("remember-id"))
+      ;
 
     http
+      .addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class)
       .addFilterBefore(apiLoginFilter(authenticationManager(http)), UsernamePasswordAuthenticationFilter.class)
-      .addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
+    ;
     return http.build();
   }
 
