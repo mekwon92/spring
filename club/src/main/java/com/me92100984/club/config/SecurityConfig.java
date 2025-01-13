@@ -55,18 +55,19 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
-        .csrf(csrf -> csrf.disable()) // CSRF 비활성화 (필요에 따라 활성화)
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/sample/all").permitAll() // `/public/` 경로는 인증 없이 접근 가능
-            .requestMatchers("/sample/member").hasRole("USER")
-            // .requestMatchers("/sample/admin").hasRole("ADMIN")
-            .anyRequest().authenticated() // 나머지는 인증 필요
-        )
-        .formLogin(f -> f.permitAll()) // 기본 로그인 폼 활성화
-        .logout(l -> l.logoutUrl("/member/signout"))
-        .oauth2Login(o -> o.successHandler(loginSuccessHandler()))
-        .rememberMe(r -> r.tokenValiditySeconds(60 * 60 * 24 * 14).userDetailsService(userDetailsService)
-          .rememberMeCookieName("remember-id"));
+      .csrf(csrf -> csrf.disable()) // CSRF 비활성화 (필요에 따라 활성화)
+      .authorizeHttpRequests(auth -> auth
+          // .requestMatchers("/sample/all").permitAll() // `/public/` 경로는 인증 없이 접근 가능
+          // .requestMatchers("/sample/member").hasRole("USER")
+          // // .requestMatchers("/sample/admin").hasRole("ADMIN")
+          // .anyRequest().authenticated() // 나머지는 인증 필요
+          .anyRequest().permitAll()
+      )
+      .formLogin(f -> f.permitAll()) // 기본 로그인 폼 활성화
+      .logout(l -> l.logoutUrl("/member/signout"))
+      .oauth2Login(o -> o.successHandler(loginSuccessHandler()))
+      .rememberMe(r -> r.tokenValiditySeconds(60 * 60 * 24 * 14).userDetailsService(userDetailsService)
+        .rememberMeCookieName("remember-id"));
 
     http
       .addFilterBefore(apiLoginFilter(authenticationManager(http)), UsernamePasswordAuthenticationFilter.class)
