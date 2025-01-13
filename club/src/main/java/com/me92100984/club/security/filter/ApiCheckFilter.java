@@ -7,6 +7,9 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.me92100984.club.security.util.JWTUtil;
+import com.nimbusds.jwt.JWT;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,10 +23,12 @@ public class ApiCheckFilter extends OncePerRequestFilter {
 
   private AntPathMatcher antPathMatcher;
   private String pattern;
+  private JWTUtil jwtUtil;
 
-  public ApiCheckFilter(String pattern) {
+  public ApiCheckFilter(String pattern, JWTUtil jwtutil) {
     antPathMatcher = new AntPathMatcher();
     this.pattern = pattern;
+    this.jwtUtil = jwtutil;
   }
   
   @Override
@@ -33,7 +38,8 @@ public class ApiCheckFilter extends OncePerRequestFilter {
       log.info("============== api check filter ==========="); 
       log.info(request.getRequestURI());
 
-      if(checkAuthHeader(request)) {
+      if(checkAuthHeader(request)) { //uri가 아닌 시점
+
         filterChain.doFilter(request, response);
       }
       else {
@@ -54,11 +60,14 @@ public class ApiCheckFilter extends OncePerRequestFilter {
     boolean result = false;
     String authHeader = request.getHeader("Authorization");
 
-    if(StringUtils.hasText(authHeader)) {
+    if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
       log.info("Authentication exist :: " + authHeader);
-      if(authHeader.equals("12345678")) {
-        result = true;
-      }
+      String email = jwtUtil.validateExtract(authHeader.substring(7));
+      log.info("valid email :: " + email);
+      result = email.length() > 0;
+      // if(authHeader.equals("12345678")) {
+      //   result = true;
+      // }
     }
     return result;
    }

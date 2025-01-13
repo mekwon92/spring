@@ -38,7 +38,7 @@ public class SecurityConfig {
 
   @Bean
   public ApiCheckFilter apiCheckFilter() {
-    return new ApiCheckFilter("/api/v1/**");
+    return new ApiCheckFilter("/api/v1/**", jwtUtil());
   }
 
   @Bean
