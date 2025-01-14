@@ -1,6 +1,7 @@
 package com.me92100984.club.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.aspectj.weaver.ast.Not;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,10 @@ import com.me92100984.club.entity.Note;
 public interface NoteService {
   
   Long write(NoteDTO dto);
-  NoteDTO get(Long num);
+  Optional<NoteDTO> get(Long num);
   List<NoteDTO> listByEmail(String email);
   List<NoteDTO> listByMno(Long mno);
+  List<NoteDTO> listAll();
   int modify(NoteDTO dto);
   int remove(Long num);
   

@@ -1,4 +1,6 @@
 package com.me92100984.club.config;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.me92100984.club.security.filter.ApiCheckFilter;
 import com.me92100984.club.security.filter.ApiLoginFilter;
@@ -59,22 +64,40 @@ public class SecurityConfig {
     return new BCryptPasswordEncoder();
   }
 
+  @Bean // spring security global Cors
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+
+        config.setAllowCredentials(true);
+        config.setAllowedOrigins(List.of("http://localhost:3000"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setExposedHeaders(List.of("*"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
+
+
+
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
       .csrf(csrf -> csrf.disable()) // CSRF 비활성화 (필요에 따라 활성화)
       .authorizeHttpRequests(auth -> auth
           .requestMatchers("/sample/all").permitAll() // `/public/` 경로는 인증 없이 접근 가능
+          .requestMatchers("/swagger-ui.html").permitAll() 
           .requestMatchers("/sample/member").hasRole("USER")
-          // // .requestMatchers("/sample/admin").hasRole("ADMIN")
-          .anyRequest().authenticated() // 나머지는 인증 필요
+          // .requestMatchers("/sample/admin").hasRole("ADMIN")
+          // .anyRequest().authenticated() // 나머지는 인증 필요하다!
+          .anyRequest().permitAll()
       )
-      .formLogin(f -> f.permitAll()) // 기본 로그인 폼 활성화
       .userDetailsService(userDetailsService)
-      .logout(l -> l.logoutUrl("/member/signout"))
-      .oauth2Login(o -> o.successHandler(loginSuccessHandler()))
+      // .oauth2Login(o -> o.successHandler(loginSuccessHandler()))
       // .rememberMe(r -> r.tokenValiditySeconds(60 * 60 * 24 * 14)
       // .rememberMeCookieName("remember-id"))
+      .cors(c -> c.configurationSource(corsConfigurationSource()))
       ;
 
     http

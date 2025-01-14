@@ -1,6 +1,7 @@
 package com.me92100984.club.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,16 @@ public class NoteServiceImpl implements NoteService {
 
   @Override
   @Transactional
-  public NoteDTO get(Long num) {
-    return toDTO(repository.findByNum(num));
+  public Optional<NoteDTO> get(Long num) {
+    return repository.findById(num).map(this::toDTO);
   }
+
+  
+  @Override
+  public List<NoteDTO> listAll() {
+    return repository.findAll().stream().map(this::toDTO).toList();
+  }
+
 
   @Override
   public List<NoteDTO> listByMno(Long mno) {
@@ -33,7 +41,7 @@ public class NoteServiceImpl implements NoteService {
 
   @Override
   public List<NoteDTO> listByEmail(String email) {
-    return repository.findByMemberEmail(email).stream().map(note -> toDTO(note)).collect(Collectors.toList());
+    return repository.findByMemberEmail(email).stream().map(this::toDTO).toList();
   }
 
   @Override
