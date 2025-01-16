@@ -1,16 +1,24 @@
 package com.me92100984.club.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.Builder.Default;
 
-@Data
+@Getter
+@Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class NoteDTO {
   private Long num;
   private String title;
@@ -18,4 +26,7 @@ public class NoteDTO {
   private String writer;
   private Long mno;
   private LocalDateTime regDate, modDate;
+
+  @Default
+  private List<AttachDTO> attachDTOs = new ArrayList<>();
 }

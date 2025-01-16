@@ -9,17 +9,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.me92100984.club.dto.NoteDTO;
+import com.me92100984.club.entity.Member;
 import com.me92100984.club.entity.Note;
+import com.me92100984.club.repository.MemberRepository;
 import com.me92100984.club.repository.NoteRepository;
 
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 
 @Service
 @Data
+@Log4j2
 public class NoteServiceImpl implements NoteService {
 
   @Autowired
   private NoteRepository repository;
+
+  @Autowired
+  private MemberRepository memberRepository;
 
   @Override
   @Transactional
@@ -61,10 +68,11 @@ public class NoteServiceImpl implements NoteService {
   }
 
   @Override
-  @Transactional
   public Long write(NoteDTO dto) {
-    Note note = toEntity(dto);
-    repository.save(note);
-    return note.getNum();
+    Member member = memberRepository.findByEmail(dto.getWriter());
+    log.info(member);
+    log.info(member.getMno());
+    dto.setMno(member.getMno());
+    return repository.save(toEntity(dto)).getNum();
   }
 }

@@ -41,9 +41,11 @@ public class NoteController {
   private NoteService service;
   
   @PostMapping
-  public Long post(@RequestBody NoteDTO dto) {
-      return service.write(dto);
+  public Long write(@RequestBody NoteDTO dto) {
+    log.info(dto);
+    return service.write(dto);
   }
+
 
   @GetMapping("list")
   public List<NoteDTO> list(String email) {
