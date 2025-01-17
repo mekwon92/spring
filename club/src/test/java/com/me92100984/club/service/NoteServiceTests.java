@@ -87,6 +87,12 @@ public class NoteServiceTests {
     dto.getAttachDTOs().forEach(log::info);
     service.get(15L);
   }
+
+  @Test
+  @Transactional
+  public void test() {
+    service.listAll();
+  }
 }
 
 

@@ -1,5 +1,6 @@
 package com.me92100984.club.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,6 +24,7 @@ import lombok.extern.log4j.Log4j2;
 @Service
 @Data
 @Log4j2
+
 public class NoteServiceImpl implements NoteService {
 
   @Autowired
@@ -44,17 +46,30 @@ public class NoteServiceImpl implements NoteService {
   
   @Override
   public List<NoteDTO> listAll() {
-    return repository.findAll().stream().map(this::toDTO).toList();
+    return repository.findNotes().stream().map(o -> {
+      log.info(Arrays.toString(o));
+      NoteDTO dto = toDTO((Note)o[0]); 
+      dto.setLikesCnt((Long)o[1]);
+      dto.setAttachCnt((Long)o[2]);
+
+      return dto;
+      }).toList();
   }
 
   @Override
   public List<NoteDTO> listByMno(Long mno) {
     return repository.findByMemberMno(mno).stream().map(note -> toDTO(note)).collect(Collectors.toList());
+    //  return repository.findByMemberEmail(email).stream().map(this::toDTO).toList();
   }
 
   @Override
   public List<NoteDTO> listByEmail(String email) {
-    return repository.findByMemberEmail(email).stream().map(this::toDTO).toList();
+    return repository.findNotesBy(email).stream().map(o -> {
+      NoteDTO dto = toDTO((Note)o[0]); 
+      dto.setLikesCnt((Long)o[1]);
+      dto.setAttachCnt((Long)o[2]);
+      return dto;
+      }).toList();
   }
 
   @Override

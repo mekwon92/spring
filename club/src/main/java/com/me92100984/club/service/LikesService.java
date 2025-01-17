@@ -8,7 +8,7 @@ import com.me92100984.club.entity.Member;
 import com.me92100984.club.entity.Note;
 
 public interface LikesService {
-  void toggle(LikesDTO dto);
+  boolean toggle(LikesDTO dto);
   boolean get(LikesDTO dto);
 
   default LikesDTO toDTO(Likes likes) {
@@ -30,7 +30,7 @@ public interface LikesService {
 
   default Likes toEntity(LikesDTO dto) {
     return Likes.builder()
-    .member(Member.builder().mno(dto.getMno()).build())
+    .member(Member.builder().mno(dto.getMno()).email(dto.getEmail()).build())
     .note(Note.builder().num(dto.getNum()).build())
     .build();
   }
