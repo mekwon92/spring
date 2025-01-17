@@ -5,14 +5,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.me92100984.club.dto.NoteDTO;
 import com.me92100984.club.entity.Member;
+import com.me92100984.club.entity.Likes;
 import com.me92100984.club.entity.Note;
 import com.me92100984.club.repository.MemberRepository;
 import com.me92100984.club.repository.NoteRepository;
+import com.me92100984.club.repository.LikesRepository;
 
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
@@ -28,18 +31,21 @@ public class NoteServiceImpl implements NoteService {
   @Autowired
   private MemberRepository memberRepository;
 
+  @Autowired
+  private LikesRepository likesRepository;
+
   @Override
   @Transactional
   public Optional<NoteDTO> get(Long num) {
-    return repository.findById(num).map(this::toDTO);
+    long count = likesRepository.count(Example.of(Likes.builder().note(Note.builder().num(num).build()).build()));
+    log.info(count);
+    return repository.findById(num).map(this::toDTO).map(d -> { d.setLikesCnt(count); return d; });
   }
-
   
   @Override
   public List<NoteDTO> listAll() {
     return repository.findAll().stream().map(this::toDTO).toList();
   }
-
 
   @Override
   public List<NoteDTO> listByMno(Long mno) {
@@ -55,8 +61,6 @@ public class NoteServiceImpl implements NoteService {
   public int modify(NoteDTO dto) {
     repository.save(toEntity(dto));
     return 1;
-    
-    
   }
 
   @Override
@@ -64,7 +68,6 @@ public class NoteServiceImpl implements NoteService {
   public int remove(Long num) {
     repository.deleteByNum(num);
     return 1;
-    
   }
 
   @Override

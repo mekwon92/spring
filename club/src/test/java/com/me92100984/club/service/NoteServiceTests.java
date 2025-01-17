@@ -42,7 +42,6 @@ public class NoteServiceTests {
         .content("제목")
         .writer("user100@me92100984.com")
         .mno(100L)
-        .attachDTOs(null)
         .build();
     service.write(dto);
   }
@@ -84,8 +83,9 @@ public class NoteServiceTests {
 
   @Test
   public void testRead() {
-    NoteDTO dto = service.get(17L).get();
+    NoteDTO dto = service.get(15L).get();
     dto.getAttachDTOs().forEach(log::info);
+    service.get(15L);
   }
 }
 

@@ -41,6 +41,7 @@ public interface NoteService {
         .path(a.getPath())
         .size(a.getSize())
         .url(a.getUrl())
+        .note(note)
         .build()).toList()
       );
       return note;

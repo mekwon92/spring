@@ -27,6 +27,8 @@ public class NoteDTO {
   private Long mno;
   private LocalDateTime regDate, modDate;
 
+  private long likesCnt; //entity에는 존재하면 안됨(부하생김)
+
   @Default
   private List<AttachDTO> attachDTOs = new ArrayList<>();
 }

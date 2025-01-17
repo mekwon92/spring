@@ -42,6 +42,7 @@ public class FileController {
   @PostMapping("upload")
   public ResponseEntity<?> upload(@RequestParam("file") List<MultipartFile> files) {
     List<AttachDTO> list = new ArrayList<>();
+    log.info(files);
     for(MultipartFile file : files){
       try {
         // Extract file details
@@ -49,6 +50,9 @@ public class FileController {
         String path = path();
         String uuid = UUID.randomUUID().toString();
         String ext = "";
+        if(origin == null) {
+          continue;
+        }
         int idx = origin.lastIndexOf(".");
         if(idx > 0) {
           ext = origin.substring(idx+1);
@@ -74,7 +78,6 @@ public class FileController {
         .fileName(fileName)
         .ext(ext)
         .url(String.format("https://%s.s3.%s.amazonaws.com/%s",bucketName, region, key)).build();
-
         list.add(dto);
         
       } catch (Exception e) {
