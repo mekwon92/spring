@@ -24,6 +24,7 @@ public class ChatHandler extends TextWebSocketHandler {
   @Override
   protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
     for(WebSocketSession ws : sessions) {
+      log.info(message.getPayload());
       ws.sendMessage(new TextMessage(message.getPayload()));
     }
   }
@@ -31,8 +32,5 @@ public class ChatHandler extends TextWebSocketHandler {
   @Override
   public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
     log.info(session.getId() + "사용자의 종료");
-
   }
-
-
 }
